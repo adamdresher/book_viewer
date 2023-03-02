@@ -1,0 +1,7 @@
+<h2 class="content-subhead" align="center"><%= @chapter_title %></h2>
+<h2 class="content-subhead" align="center">Chapter <%= @num.to_s %></h2>
+<br>
+
+<% @chapter_content.each do |paragraph| %>
+  <p align="center"><%= paragraph %></p>
+<% end %>

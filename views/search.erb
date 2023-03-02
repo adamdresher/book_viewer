@@ -1,0 +1,35 @@
+<h2 class="content-subhead">Search</h2>
+
+<form action="/search" method="get">
+  <input name="query" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+</form>
+
+<% unless @query.strip.empty? %> <!-- accounts for whitespace query -->
+  <% if @search_results.any? %>
+
+    <h3><%= @search_results.size %> results found for: <em><%= @query %></em></h3>
+    <ul>
+      <% @search_results.each do |result| %>
+        <li><b><%= result[:title].chomp %></b></li>
+
+          <ul> <!-- select highlighted paragraphs with query -->
+            <% anchored_chapters = chunk_paragraphs result[:contents] %>
+
+            <% anchored_chapters.each_with_index do |paragraph, idx| %>
+              <% if paragraph.downcase.match? @query.downcase %>
+
+                <% highlighted_paragraph = highlight(paragraph, @query) %>
+
+                <li><a href="chapter/<%= result[:num] %>#<%= idx %>"><%= highlighted_paragraph %></a></li>
+              <% end %>
+            <% end %>
+          </ul>
+
+      <% end %>
+    </ul>
+
+  <% else %>
+    <h3>Sorry, no matches were found.</h3>
+  <% end %>
+<% end %>
