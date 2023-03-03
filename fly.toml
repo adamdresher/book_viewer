@@ -1,15 +1,14 @@
-# fly.toml file generated for bookviewer on 2023-03-03T12:53:56+07:00
+# fly.toml file generated for bookviewer on 2023-03-03T21:07:35+07:00
 
 app = "bookviewer"
 kill_signal = "SIGINT"
 kill_timeout = 5
-processes = []
 
 [build]
   builder = "heroku/buildpacks:20"
 
 [env]
-  PORT = "3000"
+  PORT = "8080"
 
 [experimental]
   auto_rollback = true
